@@ -2,7 +2,7 @@ import DiscordEmbedMockup from "@/components/discord-embed-mockup";
 import SetupSteps from "@/components/setup-steps";
 
 export default function Home() {
-  const clientId = process.env.DISCORD_CLIENT_ID ?? "";
+  const clientId = process.env.NEXT_PUBLIC_DISCORD_CLIENT_ID ?? process.env.DISCORD_CLIENT_ID ?? "";
   const inviteUrl = clientId
     ? `https://discord.com/api/oauth2/authorize?client_id=${clientId}&permissions=274877908992&scope=bot`
     : "https://discord.com/developers/applications";
