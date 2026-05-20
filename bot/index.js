@@ -412,7 +412,7 @@ client.on("messageCreate", async (message) => {
         iconURL: message.author.displayAvatarURL({ dynamic: true }),
       });
 
-    await message.channel.send({
+    await message.reply({
       embeds: [serverEmbed],
       components: buildServerRows(ROBLOX_SERVERS),
     });
@@ -442,7 +442,7 @@ client.on("messageCreate", async (message) => {
       .setEmoji({ id: "1500695831169204295", name: "emoji_3", animated: true })
   );
 
-  await message.channel.send({ embeds: [embed], components: [row] });
+  await message.reply({ embeds: [embed], components: [row] });
 });
 
 // ── Button / Modal interactions ─────────────────────────────────────────────────
