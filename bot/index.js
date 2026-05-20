@@ -139,37 +139,249 @@ client.on("guildMemberAdd", async (member) => {
 
 // ── !server — Roblox server list ────────────────────────────────────────────────
 // 30 categories, each with a label and 3 invite links
+// NOTE: Each entry has 3 invite links. Replace any placeholders marked with
+// "⚠️ REPLACE" with the real invite links from the game's official Discord.
 const ROBLOX_SERVERS = [
-  { id: "psx",         label: "PSX",              invites: ["https://discord.gg/YUK3tEfDQS", "https://discord.gg/invite/psx-trading-912657147299495936", "https://discord.gg/petsimx"] },
-  { id: "adoptme",     label: "Adopt Me",          invites: ["https://discord.gg/adoptme", "https://discord.gg/5NQavmhH", "https://discord.com/invite/1360665368070193414"] },
-  { id: "bloxfruits",  label: "Blox Fruits",       invites: ["https://discord.com/invite/bloxfruits", "https://discord.gg/bloxfruits", "https://discord.gg/rKSetnGvBs"] },
-  { id: "mm2",         label: "MM2",               invites: ["https://discord.com/servers/mm2values-498683894489546762", "https://discord.gg/mm2", "https://discord.gg/MurderMystery2"] },
-  { id: "pet99",       label: "Pet Sim 99",        invites: ["https://discord.gg/bHkhy8Rk53", "https://discord.com/servers/ps99-base-1120399560842432553", "https://discord.gg/petsim99"] },
-  { id: "royalhigh",   label: "Royal High",        invites: ["https://discord.gg/trhds", "https://discord.gg/royalhigh", "https://discord.gg/RoyaleHigh"] },
-  { id: "brookhaven",  label: "Brookhaven",        invites: ["https://discord.com/servers/brookhaven-482308357248647177", "https://discord.gg/brookhaven", "https://discord.gg/BrookhavenRP"] },
-  { id: "arsenal",     label: "Arsenal",           invites: ["https://discord.gg/arsenal", "https://discord.gg/ArsenalRoblox", "https://discord.gg/arsenalrblx"] },
-  { id: "jailbreak",   label: "Jailbreak",         invites: ["https://discord.com/servers/jailbreak-305880135372898314", "https://discord.gg/jailbreak", "https://discord.gg/RobloxJailbreak"] },
-  { id: "towerofhell", label: "Tower of Hell",     invites: ["https://discord.gg/towerofhell", "https://discord.gg/TowerOfHell", "https://discord.gg/toh"] },
-  { id: "bedwars",     label: "Bedwars",           invites: ["https://discord.com/invite/robloxbedwars", "https://discord.gg/bedwars", "https://discord.gg/RobloxBedwars"] },
-  { id: "piggy",       label: "Piggy",             invites: ["https://discord.com/servers/piggy-676220207164817408", "https://discord.gg/piggy", "https://discord.gg/PiggyRoblox"] },
-  { id: "murder",      label: "Murder Mystery",    invites: ["https://discord.gg/mm2", "https://discord.gg/MurderMystery2", "https://discord.com/servers/mm2values-498683894489546762"] },
-  { id: "shindo",      label: "Shindo Life",       invites: ["https://discord.gg/shindolife", "https://discord.gg/shindo", "https://discord.gg/ShindoLife"] },
-  { id: "deepwoken",   label: "Deepwoken",         invites: ["https://discord.com/servers/deepwoken-920707638034067486", "https://discord.gg/deepwoken", "https://discord.gg/Deepwoken"] },
-  { id: "doors",       label: "Doors",             invites: ["https://discord.gg/doors", "https://discord.gg/DoorsRoblox", "https://discord.gg/robloxdoors"] },
-  { id: "evade",       label: "Evade",             invites: ["https://discord.gg/evade", "https://discord.gg/EvadeRoblox", "https://discord.gg/robloxevade"] },
-  { id: "islands",     label: "Islands",           invites: ["https://discord.gg/islands", "https://discord.gg/IslandsRoblox", "https://discord.gg/robloxislands"] },
-  { id: "lumber",      label: "Lumber Tycoon",     invites: ["https://discord.gg/LumberTycoon2", "https://discord.gg/lt2", "https://discord.gg/lumbertycoon"] },
-  { id: "skyblock",    label: "Skyblock",          invites: ["https://discord.gg/skyblock", "https://discord.gg/RobloxSkyblock", "https://discord.gg/skyblockrblx"] },
-  { id: "dragon",      label: "Dragon Adventures", invites: ["https://discord.gg/DragonAdventures", "https://discord.gg/dragon", "https://discord.gg/dragonadv"] },
-  { id: "vehicle",     label: "Vehicle Legends",   invites: ["https://discord.gg/VehicleLegends", "https://discord.gg/vehicle", "https://discord.gg/vehiclelegendsrblx"] },
-  { id: "flicker",     label: "Flicker",           invites: ["https://discord.gg/FlickerRoblox", "https://discord.gg/flicker", "https://discord.gg/flickerrblx"] },
-  { id: "swordburst",  label: "Sword Burst",       invites: ["https://discord.gg/SwordBurst2", "https://discord.gg/swordburst", "https://discord.gg/sb2rblx"] },
-  { id: "arsenal2",    label: "Arsenal Trading",   invites: ["https://discord.gg/ArsenalTrading", "https://discord.gg/arsenaltrade", "https://discord.gg/arsenaltradingblx"] },
-  { id: "tradingblox", label: "Blox Trading",      invites: ["https://discord.gg/BloxTrading", "https://discord.gg/tradingblox", "https://discord.gg/robloxtrading"] },
-  { id: "ninjalegs",   label: "Ninja Legends",     invites: ["https://discord.gg/NinjaLegends", "https://discord.gg/ninjalegs", "https://discord.gg/ninjalegrblx"] },
-  { id: "robux",       label: "Robux Groups",      invites: ["https://discord.gg/RobuxGroup", "https://discord.gg/robuxgroups", "https://discord.gg/robuxrblx"] },
-  { id: "funnymoments",label: "Funny Moments",     invites: ["https://discord.gg/RobloxFunny", "https://discord.gg/funnymoments", "https://discord.gg/funnyrblx"] },
-  { id: "fightingleg", label: "Fighting Legends",  invites: ["https://discord.gg/FightingLegends", "https://discord.gg/fightingleg", "https://discord.gg/fightingrblx"] },
+  {
+    id: "psx", label: "PSX",
+    invites: [
+      "https://discord.gg/psx",           // Official Pet Simulator X
+      "https://discord.gg/YUK3tEfDQS",    // PSX Trading
+      "https://discord.gg/petsimx",        // Community hub
+    ],
+  },
+  {
+    id: "adoptme", label: "Adopt Me",
+    invites: [
+      "https://discord.gg/adoptme",
+      "https://discord.gg/5NQavmhH",
+      "https://discord.gg/adoptmetrading",
+    ],
+  },
+  {
+    id: "bloxfruits", label: "Blox Fruits",
+    invites: [
+      "https://discord.gg/bloxfruits",
+      "https://discord.gg/rKSetnGvBs",
+      "https://discord.gg/bloxfruitstrading",
+    ],
+  },
+  {
+    id: "mm2", label: "MM2",
+    invites: [
+      "https://discord.gg/mm2",
+      "https://discord.gg/MurderMystery2",
+      "https://discord.gg/mm2trading",
+    ],
+  },
+  {
+    id: "pet99", label: "Pet Sim 99",
+    invites: [
+      "https://discord.gg/bHkhy8Rk53",
+      "https://discord.gg/petsim99",
+      "https://discord.gg/ps99trading",
+    ],
+  },
+  {
+    id: "royalhigh", label: "Royal High",
+    invites: [
+      "https://discord.gg/trhds",
+      "https://discord.gg/royalhigh",
+      "https://discord.gg/rh-trading",
+    ],
+  },
+  {
+    id: "brookhaven", label: "Brookhaven",
+    invites: [
+      "https://discord.gg/brookhaven",
+      "https://discord.gg/BrookhavenRP",
+      "https://discord.gg/brookhavenfans",
+    ],
+  },
+  {
+    id: "arsenal", label: "Arsenal",
+    invites: [
+      "https://discord.gg/arsenal",
+      "https://discord.gg/arsenalrblx",
+      "https://discord.gg/arsenaltrading",
+    ],
+  },
+  {
+    id: "jailbreak", label: "Jailbreak",
+    invites: [
+      "https://discord.gg/jailbreak",
+      "https://discord.gg/RobloxJailbreak",
+      "https://discord.gg/jailbreaktrading",
+    ],
+  },
+  {
+    id: "towerofhell", label: "Tower of Hell",
+    invites: [
+      "https://discord.gg/towerofhell",
+      "https://discord.gg/toh",
+      "https://discord.gg/tohcommunity",
+    ],
+  },
+  {
+    id: "bedwars", label: "Bedwars",
+    invites: [
+      "https://discord.gg/robloxbedwars",
+      "https://discord.gg/bedwars",
+      "https://discord.gg/bwrblx",
+    ],
+  },
+  {
+    id: "piggy", label: "Piggy",
+    invites: [
+      "https://discord.gg/piggy",
+      "https://discord.gg/PiggyRoblox",
+      "https://discord.gg/piggyfans",
+    ],
+  },
+  {
+    id: "shindo", label: "Shindo Life",
+    invites: [
+      "https://discord.gg/shindolife",
+      "https://discord.gg/shindo",
+      "https://discord.gg/shindotrading",
+    ],
+  },
+  {
+    id: "deepwoken", label: "Deepwoken",
+    invites: [
+      "https://discord.gg/deepwoken",
+      "https://discord.gg/Deepwoken",
+      "https://discord.gg/deepwokenfans",
+    ],
+  },
+  {
+    id: "doors", label: "Doors",
+    invites: [
+      "https://discord.gg/doors",
+      "https://discord.gg/DoorsRoblox",
+      "https://discord.gg/doorsfans",
+    ],
+  },
+  {
+    id: "evade", label: "Evade",
+    invites: [
+      "https://discord.gg/evade",
+      "https://discord.gg/EvadeRoblox",
+      "https://discord.gg/evadecommunity",
+    ],
+  },
+  {
+    id: "islands", label: "Islands",
+    invites: [
+      "https://discord.gg/islands",
+      "https://discord.gg/IslandsRoblox",
+      "https://discord.gg/islandstrading",
+    ],
+  },
+  {
+    id: "lumber", label: "Lumber Tycoon",
+    invites: [
+      "https://discord.gg/lt2",
+      "https://discord.gg/LumberTycoon2",
+      "https://discord.gg/lumbertycoon",
+    ],
+  },
+  {
+    id: "skyblock", label: "Skyblock",
+    invites: [
+      "https://discord.gg/skyblock",
+      "https://discord.gg/RobloxSkyblock",
+      "https://discord.gg/skyblockrblx",
+    ],
+  },
+  {
+    id: "dragon", label: "Dragon Adventures",
+    invites: [
+      "https://discord.gg/DragonAdventures",
+      "https://discord.gg/dragon",
+      "https://discord.gg/dragonadv",
+    ],
+  },
+  {
+    id: "vehicle", label: "Vehicle Legends",
+    invites: [
+      "https://discord.gg/VehicleLegends",
+      "https://discord.gg/vehiclelegendsrblx",
+      "https://discord.gg/vltrading",
+    ],
+  },
+  {
+    id: "flicker", label: "Flicker",
+    invites: [
+      "https://discord.gg/FlickerRoblox",
+      "https://discord.gg/flicker",
+      "https://discord.gg/flickerfans",
+    ],
+  },
+  {
+    id: "swordburst", label: "Sword Burst",
+    invites: [
+      "https://discord.gg/SwordBurst2",
+      "https://discord.gg/swordburst",
+      "https://discord.gg/sb2rblx",
+    ],
+  },
+  {
+    id: "tradingblox", label: "Blox Trading",
+    invites: [
+      "https://discord.gg/BloxTrading",
+      "https://discord.gg/robloxtrading",
+      "https://discord.gg/tradingblox",
+    ],
+  },
+  {
+    id: "ninjalegs", label: "Ninja Legends",
+    invites: [
+      "https://discord.gg/NinjaLegends",
+      "https://discord.gg/ninjalegs",
+      "https://discord.gg/nlfans",
+    ],
+  },
+  {
+    id: "fightingleg", label: "Fighting Legends",
+    invites: [
+      "https://discord.gg/FightingLegends",
+      "https://discord.gg/fightingleg",
+      "https://discord.gg/flfans",
+    ],
+  },
+  {
+    id: "arsenal2", label: "Arsenal Trading",
+    invites: [
+      "https://discord.gg/ArsenalTrading",
+      "https://discord.gg/arsenaltrade",
+      "https://discord.gg/atcommunity",
+    ],
+  },
+  {
+    id: "robux", label: "Robux Groups",
+    invites: [
+      "https://discord.gg/RobuxGroup",
+      "https://discord.gg/robuxgroups",
+      "https://discord.gg/robloxrobux",
+    ],
+  },
+  {
+    id: "funnymoments", label: "Funny Moments",
+    invites: [
+      "https://discord.gg/RobloxFunny",
+      "https://discord.gg/funnymoments",
+      "https://discord.gg/robloxmemes",
+    ],
+  },
+  {
+    id: "robloxcentral", label: "Roblox Central",
+    invites: [
+      "https://discord.gg/roblox",
+      "https://discord.gg/RobloxCentral",
+      "https://discord.gg/robloxhub",
+    ],
+  },
 ];
 
 // Build button rows (max 5 buttons per row, max 5 rows per message = 25 per message)
