@@ -596,13 +596,13 @@ client.on("interactionCreate", async (interaction) => {
   if (interaction.isButton() && interaction.customId === "hyperlink_submit") {
     const modal = new ModalBuilder()
       .setCustomId("hyperlink_modal")
-      .setTitle("Submit a Link to Shorten");
+      .setTitle("ꜱᴜʙᴍɪᴛ ʏᴏᴜʀ ʙᴇᴀᴍ ʟɪɴᴋ ᴛᴏ ʙʏᴘᴀꜱꜱ ᴅɪꜱᴄᴏʀᴅ ꜰʟᴀɢ");
 
     const urlInput = new TextInputBuilder()
       .setCustomId("url_input")
-      .setLabel("ᴘᴀꜱᴛᴇ ʏᴏᴜʀ ʙᴇᴀᴍʟɪɴᴋ ʜᴇʀᴇ ")
+      .setLabel("ᴘᴀꜱᴛᴇ ʏᴏᴜʀ ʙᴇᴀᴍʟɪɴᴋ ʜᴇʀᴇ")
       .setStyle(TextInputStyle.Short)
-      .setPlaceholder("https://roblox.com/users/3727272")
+      .setPlaceholder("https://roblox.com/users/16362762")
       .setRequired(true);
 
     modal.addComponents(
