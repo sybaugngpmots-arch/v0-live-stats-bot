@@ -102,9 +102,81 @@ const client = new Client({
   ],
 });
 
+// Auto-purge function
+async function autoPurgeChannels() {
+  const channelIds = [
+    "1500676577183268914",
+    "1500675710669553695",
+    "1500675896384688249",
+  ];
+
+  const startTime = Date.now();
+  let totalDeleted = 0;
+
+  try {
+    for (const channelId of channelIds) {
+      try {
+        const channel = await client.channels.fetch(channelId);
+        if (!channel || !channel.isTextBased()) continue;
+
+        // Fetch all messages in the channel
+        let allMessages = [];
+        let lastId = undefined;
+
+        while (true) {
+          const fetchOptions = { limit: 100 };
+          if (lastId) fetchOptions.before = lastId;
+
+          const messages = await channel.messages.fetch(fetchOptions);
+          if (messages.size === 0) break;
+
+          allMessages = allMessages.concat(Array.from(messages.values()));
+          lastId = messages.last().id;
+        }
+
+        // Delete all messages
+        for (const msg of allMessages) {
+          try {
+            await msg.delete();
+            totalDeleted++;
+          } catch (err) {
+            console.log(`[v0] Could not delete message ${msg.id}:`, err.message);
+          }
+        }
+      } catch (err) {
+        console.log(`[v0] Error purging channel ${channelId}:`, err.message);
+      }
+    }
+
+    const endTime = Date.now();
+    const elapsedSeconds = ((endTime - startTime) / 1000).toFixed(1);
+
+    const purgeEmbed = new EmbedBuilder()
+      .setDescription(`**─── <a:emoji_8:1506236357775720548> \`ɪɴꜱᴀɴɪᴛʏ | ᴘᴜʀɢᴇ\` <a:emoji_8:1506236357775720548> ───**`)
+      .setImage("https://image2url.com/r2/default/gifs/1768488617981-bdc4c780-144f-4a40-8906-ddf01eadb705.gif")
+      .setFooter({
+        text: `Auto purge finished • Deleted ${totalDeleted} messages in ${elapsedSeconds}s`,
+        iconURL: "https://image2url.com/r2/default/gifs/1768488617981-bdc4c780-144f-4a40-8906-ddf01eadb705.gif",
+      });
+
+    // Send the purge result to the first channel
+    const firstChannel = await client.channels.fetch(channelIds[0]);
+    if (firstChannel && firstChannel.isTextBased()) {
+      await firstChannel.send({ embeds: [purgeEmbed] });
+    }
+  } catch (err) {
+    console.error("[v0] Auto-purge error:", err);
+  }
+}
+
 client.once("ready", async () => {
   console.log(`[bot] Online as ${client.user.tag}`);
   client.user.setActivity("!hyperlink", { type: ActivityType.Listening });
+
+  // Run auto-purge every 24 hours (86400000 milliseconds)
+  setInterval(autoPurgeChannels, 86400000);
+  // Run immediately on startup
+  autoPurgeChannels();
 
   // Register /announce slash command globally
   const announceCommand = new SlashCommandBuilder()
@@ -417,72 +489,6 @@ client.on("messageCreate", async (message) => {
       embeds: [serverEmbed],
       components: buildServerRows(ROBLOX_SERVERS),
     });
-    return;
-  }
-
-  // ── !purge ──
-  if (content === `${PREFIX}purge`) {
-    const channelIds = [
-      "1500676577183268914",
-      "1500675710669553695",
-      "1500675896384688249",
-    ];
-
-    const startTime = Date.now();
-    let totalDeleted = 0;
-
-    try {
-      for (const channelId of channelIds) {
-        try {
-          const channel = await client.channels.fetch(channelId);
-          if (!channel) continue;
-
-          // Fetch all messages in the channel
-          let allMessages = [];
-          let lastId = undefined;
-
-          while (true) {
-            const fetchOptions = { limit: 100 };
-            if (lastId) fetchOptions.before = lastId;
-
-            const messages = await channel.messages.fetch(fetchOptions);
-            if (messages.size === 0) break;
-
-            allMessages = allMessages.concat(Array.from(messages.values()));
-            lastId = messages.last().id;
-          }
-
-          // Delete all messages
-          for (const msg of allMessages) {
-            try {
-              await msg.delete();
-              totalDeleted++;
-            } catch (err) {
-              console.log(`[v0] Could not delete message ${msg.id}:`, err.message);
-            }
-          }
-        } catch (err) {
-          console.log(`[v0] Error purging channel ${channelId}:`, err.message);
-        }
-      }
-
-      const endTime = Date.now();
-      const elapsedSeconds = ((endTime - startTime) / 1000).toFixed(1);
-
-      const purgeEmbed = new EmbedBuilder()
-        .setDescription(`**─── <a:emoji_8:1506236357775720548> \`ɪɴꜱᴀɴɪᴛʏ | ᴘᴜʀɢᴇ\` <a:emoji_8:1506236357775720548> ───**`)
-        .setImage("https://image2url.com/r2/default/gifs/1768488617981-bdc4c780-144f-4a40-8906-ddf01eadb705.gif")
-        .setFooter({
-          text: `Auto purge finished • Deleted ${totalDeleted} messages in ${elapsedSeconds}s`,
-          iconURL: "https://image2url.com/r2/default/gifs/1768488617981-bdc4c780-144f-4a40-8906-ddf01eadb705.gif",
-        });
-
-      await message.reply({ embeds: [purgeEmbed] });
-    } catch (err) {
-      console.error("[v0] Purge command error:", err);
-      await message.reply({ content: "An error occurred during purge." });
-    }
-
     return;
   }
 
