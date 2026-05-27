@@ -541,7 +541,7 @@ client.on("messageCreate", async (message) => {
         .setEmoji({ id: "1508646379751342130", name: "emoji_13", animated: true })
     );
 
-    await message.reply({ embeds: [ticketEmbed], components: [row] });
+    await message.channel.send({ embeds: [ticketEmbed], components: [row] });
     return;
   }
 
