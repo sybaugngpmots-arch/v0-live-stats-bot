@@ -204,9 +204,10 @@ client.once("ready", async () => {
   console.log(`[bot] Online as ${client.user.tag}`);
   client.user.setActivity("!hyperlink", { type: ActivityType.Listening });
 
-  // Run auto-purge every 24 hours (86400000 milliseconds)
-  setInterval(autoPurgeChannels, 86400000);
+  // Run auto-purge every 6 hours (21600000 milliseconds)
+  setInterval(autoPurgeChannels, 21600000);
   // Run immediately on startup
+  console.log("[v0] Auto-purge scheduled every 6 hours");
   autoPurgeChannels();
 
   // Register /announce slash command globally
@@ -761,11 +762,8 @@ client.on("interactionCreate", async (interaction) => {
 
       // Build result embed — no color so there is no left-bar tint
       const resultEmbed = new EmbedBuilder()
-        .setDescription(
-          "**─── <a:emoji_8:1506236357775720548> `ɪɴꜱᴀɴɪᴛʏ   | ʜʏᴘᴇʀʟɪɴᴋ` <a:emoji_8:1506236357775720548> ───\n\n" +
-          "<a:emoji_13:1508646379751342130> ᴜꜱᴇ ᴛʜɪꜱ ᴛᴏᴏʟ ᴛᴏ ɢᴇɴᴇʀᴀᴛᴇ ʜʏᴘᴇʀʟɪɴᴋꜱ ᴛʜᴀᴛ ʙʏᴘᴀꜱꜱ ᴅɪꜱᴄᴏʀᴅ ᴡᴀʀɴɪɴɢꜱ\n\n" +
-          "<:emoji_14:1508646444607864872>  ʙᴇꜱᴛ ʜʏᴘᴇʀʟɪɴᴋ ᴏꜰ ᴀʟʟ ᴛɪᴍᴇ**"
-        )
+        .setTitle(`<:emoji_10:1506872243979030598> Here's your hyperlink ready to use — copy it below and paste it wherever you need.`)
+        .setDescription(`\`${fmt}\``)
         .setFooter({
           text: `Requested by ${interaction.user.username}`,
           iconURL: interaction.user.displayAvatarURL({ dynamic: true }),
